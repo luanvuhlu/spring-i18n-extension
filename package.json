@@ -1,0 +1,68 @@
+{
+  "name": "spring-i18n",
+  "displayName": "Spring i18n",
+  "description": "Create Spring i18n messages from text",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "keywords": [
+		"Spring",
+		"i18n",
+		"Thymeleaf",
+    "Properties"
+	],
+  "icon": "images/icon.png",
+  "publisher": "luanvu",
+  "license": "MIT",
+  "activationEvents": [],
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/luanvuhlu/spring-i18n-extension.git"
+	},
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-spring-i18n.create",
+        "title": "Create Spring i18n message"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "vscode-spring-i18n.create",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "vsce package",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8",
+    "eslint": "^8.54.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
