@@ -8,35 +8,43 @@ export function activate(context: vscode.ExtensionContext) {
 		if (editor) {
 			const selection = editor.selection;
 			const text = editor.document.getText(selection);
+			if (!selection.isEmpty) {
+				const key = await vscode.window.showInputBox({ prompt: 'Enter a key for the i18n pair' });
+				if (key) {
+					const config = vscode.workspace.getConfiguration('spring.i18n');
+					const propertiesFilePaths = config.get<string[]>('propertiesFilePaths') || [];
 
-			const key = await vscode.window.showInputBox({ prompt: 'Enter a key for the i18n pair' });
-			if (key) {
-				const filePath = await selectPropertiesFile();
-				if (filePath) {
-					const fullFilePath = getFullFilePath(filePath.label);
-
-					fs.readFile(fullFilePath, 'utf8', (err, data) => {
-						if (err) {
-							vscode.window.showErrorMessage('Failed to read properties file');
-						} else if (data.includes(key)) {
-							vscode.window.showErrorMessage('Key already exists');
-						} else {
+					let filePath;
+					if (propertiesFilePaths.length > 0) {
+						// Let the user choose a path
+						filePath = await vscode.window.showQuickPick(propertiesFilePaths, { placeHolder: 'Select a properties file' });
+					} else {
+						// Use the default path
+						filePath = 'src/main/resources/messages.properties';
+					}
+					if (filePath) {
+						const fullFilePath = getFullFilePath(filePath);
+						if (!fs.existsSync(fullFilePath)) {
+							fs.writeFileSync(fullFilePath, '');
 							saveI18nMessage(fullFilePath, key, text);
+						} else {
+							fs.readFile(fullFilePath, 'utf8', (err, data) => {
+								if (err) {
+									vscode.window.showErrorMessage('Failed to read properties file');
+								} else if (data.includes(key)) {
+									vscode.window.showErrorMessage('Key already exists');
+								} else {
+									saveI18nMessage(fullFilePath, key, text);
+								}
+							});
 						}
-					});
+					}
 				}
 			}
 		}
 	});
 
 	context.subscriptions.push(disposable);
-}
-
-async function selectPropertiesFile(): Promise<vscode.QuickPickItem | undefined> {
-	const config = vscode.workspace.getConfiguration('spring.i18n');
-	const propertiesFilePaths = config.get<string[]>('propertiesFilePaths');
-	const filePaths: vscode.QuickPickItem[] = propertiesFilePaths ? propertiesFilePaths.map(path => ({ label: path })) : [];
-	return vscode.window.showQuickPick(filePaths, { placeHolder: 'Select a properties file' });
 }
 
 function getFullFilePath(label: string): string {

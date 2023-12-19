@@ -2,7 +2,7 @@
   "name": "spring-i18n",
   "displayName": "Spring i18n",
   "description": "Create Spring i18n messages from text",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.85.0"
   },
