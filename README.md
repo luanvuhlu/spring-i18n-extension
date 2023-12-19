@@ -6,12 +6,12 @@ Just select what you want to translate and press right click to create a new i18
 ## Features
 * Create i18n properties from selected text
 
-![Demo](images/demo.gif)
+![Demo](https://raw.githubusercontent.com/luanvuhlu/spring-i18n-extension/master/images/demo.gif)
 ## Extension Settings
 
 This extension contributes the following settings:
 
-* `thymeleaf.i18n.propertiesFilePaths`: list of properties files. Default value is `["src/main/resources/messages.properties"]`
+* `spring.i18n.propertiesFilePaths`: list of properties files. Default value is `["src/main/resources/messages.properties"]`
 
 ## Feedback & Questions
 
