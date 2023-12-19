@@ -2,7 +2,7 @@
   "name": "spring-i18n",
   "displayName": "Spring i18n",
   "description": "Create Spring i18n messages from text",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -38,6 +38,16 @@
           "group": "navigation"
         }
       ]
+    },
+    "configuration": {
+      "title": "Spring I18n",
+      "properties": {
+        "spring.i18n.defaultPropertiesFilePath": {
+          "type": "string",
+          "default": "src/main/resources/messages.properties",
+          "description": "Default path for the properties file"
+        }
+      }
     }
   },
   "scripts": {

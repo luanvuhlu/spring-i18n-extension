@@ -4,10 +4,9 @@
 Just select what you want to translate and press right click to create a new i18n property.
 
 ## Features
-
 * Create i18n properties from selected text
 
-
+![Demo](images/demo.gif)
 ## Extension Settings
 
 This extension contributes the following settings:
